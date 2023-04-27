@@ -1,5 +1,7 @@
 import math
 from scipy.special import gammaincc
+from math import sqrt
+from scipy.special import erfc
 
 
 ## чтение файла
@@ -10,14 +12,14 @@ def read_file(file_name):
 
 
 def freq_bit_test(bits_in_def: list):
-    sum = 0
-    for i in bits_in_def:
-        if i == 0:
-            sum += -1
-        else:
-            sum += 1
-    itog = math.erfc((sum / math.sqrt(128)) / math.sqrt(2))
-    return itog
+    def first_test(lnum: list):
+        ones = lnum.count('1')
+        zeros = lnum.count('0')
+        sum = ones + (-1) * zeros
+        S = sum / sqrt(128)
+        P = erfc(S / sqrt(2))
+        print(P)
+        return P > 0.01
 
 
 def ident_secutive_bits_test(bits_in_def: list):
